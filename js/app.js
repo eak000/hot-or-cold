@@ -28,8 +28,18 @@ $(document).ready(function(){
     if (secretNumber === undefined) {
       newGame();
     }
-    $(".new").on("click", newGame);
+    $(".new").click(function() {
+      newGame();
 
+    });
+
+    /*-- Guess button function --*/
+    $("#guessButton").click(function() {
+      if (userGuess % 1 !== 0 || userGuess <= 0 || userGuess > 100) {
+      $("#feedback").text("Please enter a number between 1 and 100!");
+      feedback();
+      };
+    }); //Guess button function end
 
 }); //ready function end
 
@@ -55,26 +65,28 @@ $(document).ready(function(){
      }; // newGame function end
 
      /*-- user feedback funtion --*/
+     var text;
      var feedback = function() {
 
         userGuess = $("#userGuess").val();
         // alert(userGuess);
 
         if ((userGuess > (secretNumber - 10)) && (userGuess < (secretNumber +10))) {
-            $("#feedback").html("smokin' hot");
+            text = "smokin' hot";
           } 
         else if ((userGuess > (secretNumber - 25)) && (userGuess < (secretNumber + 25))){
-            $("#feeback").html("warm");
+            text = "warm";
           }
         else if ((userGuess > (secretNumber - 50)) && (userGuess < (secretNumber + 50))){
-          $("#feedback").html("cold");
+          text = "cold";
           }
         else if ((userGuess > (secretNumber - 75)) && (userGuess < (secretNumber + 75))){
-                $("#feedback").html("ice cold, baby!");
+          text = "ice cold, baby!";
           }
         else if (userGuess === secretNumber){
-          $("#feedback").html("You got it!")
+          text = "You got it!";
         };
+        $("feedback").text(text);
      }; // feedback function end
 
 
