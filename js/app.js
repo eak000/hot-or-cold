@@ -58,7 +58,7 @@ $(document).ready(function(){
 
    /*---Generate a secret number---*/
     var randomNumber = function() {
-      secretNumber = Math.floor(Math.random()*101);
+      secretNumber = 1 + Math.floor(Math.random()*100);
     }
 
 
