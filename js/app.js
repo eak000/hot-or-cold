@@ -2,6 +2,7 @@
   var secretNumber;
   var userGuess = 0;
   var counter = 0;
+  var winner = false;
 
 $(document).ready(function(){
 
@@ -28,6 +29,7 @@ $(document).ready(function(){
   	});
 
     /*-- start new game --*/
+
     if (secretNumber === undefined) {
       newGame();
     }
@@ -43,7 +45,12 @@ $(document).ready(function(){
       var newGuess = $("<li></li>").text(userGuess);
       if (userGuess % 1 !== 0 || userGuess <= 0 || userGuess > 100) {
       $("#feedback").text("Please enter a number between 1 and 100!")
-      } else {
+      } 
+      //if they guess after they win
+      else if (winner == true) {
+          $("#feedback").text("Click NEW GAME to play again!");
+      }
+      else {
         feedback(userGuess);
         counter++;
         $("#guessList").append(newGuess);
@@ -51,7 +58,12 @@ $(document).ready(function(){
       }
       //remove guess from field
       $("#userGuess").val("")
-      $("#userGuess").attr("placeholder", "Try again!");
+
+      if (winner == false) {
+      $("#userGuess").attr("placeholder", "Try again!")
+      } else {
+        $("#userGuess").attr("placeholder", "WINNER!");
+      };
     }; //Guess button function end
 
 }); //ready function end
@@ -89,13 +101,14 @@ $(document).ready(function(){
         userGuess = $("#userGuess").val();
         // alert(userGuess + secretNumber);
 
-        if ((userGuess > (secretNumber - 10)) && (userGuess < (secretNumber +10))) {
+        if ((userGuess > (secretNumber - 5)) && (userGuess < (secretNumber + 5))) {
             text = "smokin' hot";
             if (userGuess == secretNumber){
-          text = "You got it!";
-        };
+              text = "You got it!";
+              winner = true;
+            };
           } 
-        else if ((userGuess > (secretNumber - 25)) && (userGuess < (secretNumber + 25))){
+        else if ((userGuess > (secretNumber - 15)) && (userGuess < (secretNumber + 15))){
             text = "warm";
           }
         else if ((userGuess > (secretNumber - 50)) && (userGuess < (secretNumber + 50))){
@@ -103,10 +116,7 @@ $(document).ready(function(){
           }
         else if ((userGuess > (secretNumber - 75)) && (userGuess < (secretNumber + 75))){
           text = "ice cold, baby!";
-          };
-        // else if (userGuess == secretNumber){
-        //   text = "You got it!";
-        // };
+          }
   
         $("#feedback").text(text);
      }; // feedback function end
