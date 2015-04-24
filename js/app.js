@@ -77,7 +77,6 @@ $(document).ready(function(){
     /*--- New game function ---*/
     var newGame = function() {
       winner = false;
-      console.log(winner);
       //new secret number
       randomNumber();
       //reset counter
